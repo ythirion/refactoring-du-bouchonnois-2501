@@ -3,7 +3,7 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ythirion_refactoring-du-bouchonnois-2501&metric=coverage)](https://sonarcloud.io/summary/new_code?id=ythirion_refactoring-du-bouchonnois-2501)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=ythirion_refactoring-du-bouchonnois-2501&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=ythirion_refactoring-du-bouchonnois-2501)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ythirion_refactoring-du-bouchonnois-2501&metric=bugs)](https://sonarcloud.io/summary/new_code?id=ythirion_refactoring-du-bouchonnois-2501)
-[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Frefactoring-du-bouchonnois-2501)](https://dashboard.stryker-mutator.io/reports/refactoring-du-bouchonnois-2501)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fythirion%2Frefactoring-du-bouchonnois-2501%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/ythirion/refactoring-du-bouchonnois-2501/main)
 [![CodeScene Code Health](https://codescene.io/projects/60807/status-badges/code-health)](https://codescene.io/projects/60807)
 [![CodeScene general](https://codescene.io/images/analyzed-by-codescene-badge.svg)](https://codescene.io/projects/60807)
 
