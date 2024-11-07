@@ -1,12 +1,11 @@
 # Refactoring du Bouchonnois
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=ythirion_refactoring-du-bouchonnois-2409&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=ythirion_refactoring-du-bouchonnois-2409)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ythirion_refactoring-du-bouchonnois-2409&metric=coverage)](https://sonarcloud.io/summary/new_code?id=ythirion_refactoring-du-bouchonnois-2409)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=ythirion_refactoring-du-bouchonnois-2409&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=ythirion_refactoring-du-bouchonnois-2409)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ythirion_refactoring-du-bouchonnois-2409&metric=bugs)](https://sonarcloud.io/summary/new_code?id=ythirion_refactoring-du-bouchonnois-2409)
-[![CodeScene Code Health](https://codescene.io/projects/54967/status-badges/code-health)](https://codescene.io/projects/54967)
-[![CodeScene general](https://codescene.io/images/analyzed-by-codescene-badge.svg)](https://codescene.io/projects/54967)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/143a0a68f4dd4cfca691d8936fd10a64)](https://app.codacy.com/gh/ythirion/refactoring-du-bouchonnois-2409/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
-[![Codacy Code Coverage](https://app.codacy.com/project/badge/Coverage/143a0a68f4dd4cfca691d8936fd10a64)](https://app.codacy.com/gh/ythirion/refactoring-du-bouchonnois-2409/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_coverage)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=ythirion_refactoring-du-bouchonnois-2409&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=ythirion_refactoring-du-bouchonnois-2501)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ythirion_refactoring-du-bouchonnois-2501&metric=coverage)](https://sonarcloud.io/summary/new_code?id=ythirion_refactoring-du-bouchonnois-2501)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=ythirion_refactoring-du-bouchonnois-2501&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=ythirion_refactoring-du-bouchonnois-2501)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ythirion_refactoring-du-bouchonnois-2501&metric=bugs)](https://sonarcloud.io/summary/new_code?id=ythirion_refactoring-du-bouchonnois-2501)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Frefactoring-du-bouchonnois-2501)](https://dashboard.stryker-mutator.io/reports/refactoring-du-bouchonnois-2501)
+[![CodeScene Code Health](https://codescene.io/projects/60807/status-badges/code-health)](https://codescene.io/projects/60807)
+[![CodeScene general](https://codescene.io/images/analyzed-by-codescene-badge.svg)](https://codescene.io/projects/60807)
 
 Ce kata a pour objectif de s'exercer au refactoring sur un code existant afin de :
 - Identifier certains `smells` dans notre code
