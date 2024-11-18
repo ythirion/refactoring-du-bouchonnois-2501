@@ -1,5 +1,5 @@
 # Refactoring du Bouchonnois
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=ythirion_refactoring-du-bouchonnois-2409&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=ythirion_refactoring-du-bouchonnois-2501)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=ythirion_refactoring-du-bouchonnois-2501&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=ythirion_refactoring-du-bouchonnois-2501)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=ythirion_refactoring-du-bouchonnois-2501&metric=coverage)](https://sonarcloud.io/summary/new_code?id=ythirion_refactoring-du-bouchonnois-2501)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=ythirion_refactoring-du-bouchonnois-2501&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=ythirion_refactoring-du-bouchonnois-2501)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=ythirion_refactoring-du-bouchonnois-2501&metric=bugs)](https://sonarcloud.io/summary/new_code?id=ythirion_refactoring-du-bouchonnois-2501)
