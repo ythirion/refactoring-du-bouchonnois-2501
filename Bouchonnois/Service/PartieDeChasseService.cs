@@ -33,8 +33,7 @@ namespace Bouchonnois.Service
                 {
                     Nom = terrainDeChasse.nom,
                     NbGalinettes = terrainDeChasse.nbGalinettes
-                },
-                Events = new List<Event>()
+                }
             };
 
             foreach (var chasseur in chasseurs)

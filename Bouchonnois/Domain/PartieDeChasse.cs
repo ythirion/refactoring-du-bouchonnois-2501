@@ -4,9 +4,13 @@ namespace Bouchonnois.Domain
 {
     public class PartieDeChasse
     {
+        public PartieDeChasse()
+        {
+            Events = [];
+        }
         public Guid Id { get; set; }
-        public List<Chasseur> Chasseurs { get; set; }
-        public Terrain Terrain { get; set; }
+        public required List<Chasseur> Chasseurs { get; set; }
+        public required Terrain Terrain { get; set; }
         public PartieStatus Status { get; set; }
         public List<Event> Events { get; set; }
     }
