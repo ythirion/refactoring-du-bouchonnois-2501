@@ -181,6 +181,7 @@ namespace Bouchonnois.Tests.Service
 
                 tirerSansBalle.Should()
                     .Throw<TasPlusDeBallesMonVieuxChasseALaMain>();
+                repository.SavedPartieDeChasse().Should().NotBeNull(); 
             }
 
             [Fact]
