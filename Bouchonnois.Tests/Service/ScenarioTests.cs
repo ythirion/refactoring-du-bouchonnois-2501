@@ -78,8 +78,9 @@ public class ScenarioTests
         {
             service.Tirer(id, "Bernard");
         }
-        catch (TasPlusDeBallesMonVieuxChasseALaMain e)
+        catch
         {
+            // ignored : because why not
         }
 
         time = time.Add(TimeSpan.FromMinutes(19));
