@@ -43,6 +43,7 @@ public class Tirer
             Nom = "Pitibon sur Sauldre",
             NbGalinettes = 3
         });
+        savedPartieDeChasse.Chasseurs[1].BallesRestantes.Should().Be(7);
         savedPartieDeChasse.Chasseurs.Should().BeEquivalentTo(new Chasseur[]
         {
             new()
@@ -65,6 +66,41 @@ public class Tirer
             }
             
         });
+    }
+    
+    [Fact]
+    public void AvecUnChasseurAyantDesBallesDevraitConsommerUneBalle()
+    {
+        // GIVEN
+        var id = Guid.NewGuid();
+        var repository = new PartieDeChasseRepositoryForTests();
+
+        // Given une partie de chasse en cours avec un chasseur ayant huit balles
+        
+        repository.Add(new PartieDeChasse
+        {
+            Id = id,
+            Chasseurs = new List<Chasseur>
+            {
+                new() { Nom = "Bernard", BallesRestantes = 8 },
+            },
+            Terrain = new Terrain
+            {
+                Nom = "Pitibon sur Sauldre",
+                NbGalinettes = 3
+            },
+            Status = PartieStatus.EnCours,
+            Events = new List<Event>()
+        });
+
+        var service = new PartieDeChasseService(repository, () => DateTime.Now);
+
+        // WHEN
+        service.Tirer(id, "Bernard");
+
+        // THEN
+        var savedPartieDeChasse = repository.SavedPartieDeChasse();
+        savedPartieDeChasse.Chasseurs[0].BallesRestantes.Should().Be(7);
     }
 
     [Fact]
