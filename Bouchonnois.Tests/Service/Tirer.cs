@@ -17,8 +17,8 @@ public class Tirer
         var bernard = UnChasseur("Bernard") with { BallesRestantes = 8 };
         var robert = UnChasseur("Robert") with { BallesRestantes = 12 };
 
-        var laPartieDeChasse = new PartieDeChasseBuilder().Build(id);
-        repository.Add(laPartieDeChasse);
+        var laPartieDeChasse = new PartieDeChasseBuilder(new List<ChasseurBuilder>()) with {Chasseurs = new List<ChasseurBuilder>() {dédé, bernard, robert}};
+        repository.Add(laPartieDeChasse.Build(id));
 
         var service = new PartieDeChasseService(repository, () => DateTime.Now);
 
@@ -224,7 +224,7 @@ public class Tirer
     }
 }
 
-public record PartieDeChasseBuilder
+public record PartieDeChasseBuilder(List<ChasseurBuilder> Chasseurs)
 {
     public PartieDeChasse Build(Guid id)
     {
