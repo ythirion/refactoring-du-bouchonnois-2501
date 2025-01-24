@@ -7,40 +7,35 @@ namespace Bouchonnois.Tests.Service;
 
 public class Tirer
 {
+    private readonly PartieDeChasseRepositoryForTests _repository  = new PartieDeChasseRepositoryForTests();
+
     [Fact]
     public void AvecUnChasseurAyantDesBalles()
     {
         // GIVEN
-        var repository = new PartieDeChasseRepositoryForTests();
-        
         var dédé = UnChasseur("Dédé") with {BallesRestantes = 20};
         var bernard = UnChasseur("Bernard") with { BallesRestantes = 8 };
         var robert = UnChasseur("Robert") with { BallesRestantes = 12 };
 
         var laPartieDeChasse = UnePartieDeChasse() with {Chasseurs = [dédé, bernard, robert] };
 
-        repository.Add(laPartieDeChasse.Build());
+        _repository.Add(laPartieDeChasse.Build());
 
         // WHEN
-        var service = new PartieDeChasseService(repository, () => DateTime.Now);
+        var service = new PartieDeChasseService(_repository, () => DateTime.Now);
         service.Tirer(laPartieDeChasse.Id, bernard.Nom);
 
         // THEN
         var bernardAprèsLeTir = bernard with { BallesRestantes = 7 };
         var laPartieDeChasseAttendue = laPartieDeChasse with { Chasseurs = [dédé, bernardAprèsLeTir, robert] };
         
-        var laPartieDeChasseActuelle = repository.SavedPartieDeChasse();
+        var laPartieDeChasseActuelle = _repository.SavedPartieDeChasse();
         laPartieDeChasseActuelle.Should().BeEquivalentTo(laPartieDeChasseAttendue);
     }
 
     private static PartieDeChasseBuilder UnePartieDeChasse()
     {
         return new PartieDeChasseBuilder(Guid.NewGuid(), []);
-    }
-
-    private static TerrainBuilder UnTerrain()
-    {
-        return new TerrainBuilder();
     }
 
     private static ChasseurBuilder UnChasseur(string nom)
