@@ -231,12 +231,7 @@ public record PartieDeChasseBuilder(List<ChasseurBuilder> Chasseurs)
         return new PartieDeChasse
         {
             Id = id,
-            Chasseurs = new List<Chasseur>
-            {
-                (new ChasseurBuilder("Dédé", 0) with { BallesRestantes = 20 }).Build(),
-                (new ChasseurBuilder("Bernard", 0) with { BallesRestantes = 8 }).Build(),
-                (new ChasseurBuilder("Robert", 0) with { BallesRestantes = 12 }).Build()
-            },
+            Chasseurs = Chasseurs.ConvertAll(c =>  c.Build() ),
             Terrain = new TerrainBuilder().Build(),
             Status = PartieStatus.EnCours,
             Events = new List<Event>()
