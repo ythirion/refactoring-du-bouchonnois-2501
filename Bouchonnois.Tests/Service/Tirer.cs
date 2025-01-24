@@ -24,9 +24,9 @@ public class Tirer
             Id = id,
             Chasseurs = new List<Chasseur>
             {
-                dédé.Build(),
-                bernard.Build(),
-                robert.Build()
+                (UnChasseur("Dédé") with { BallesRestantes = 20 }).Build(),
+                (UnChasseur("Bernard") with { BallesRestantes = 8 }).Build(),
+                (UnChasseur("Robert") with { BallesRestantes = 12 }).Build()
             },
             Terrain = leTerrain.Build(),
             Status = PartieStatus.EnCours,
