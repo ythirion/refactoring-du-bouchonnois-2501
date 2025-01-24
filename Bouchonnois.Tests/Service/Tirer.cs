@@ -18,7 +18,7 @@ public class Tirer
             Id = id,
             Chasseurs = new List<Chasseur>
             {
-                new() { Nom = "Dédé", BallesRestantes = 20 },
+                new ChasseurBuilder().Build(),
                 new() { Nom = "Bernard", BallesRestantes = 8 },
                 new() { Nom = "Robert", BallesRestantes = 12 },
             },
@@ -74,8 +74,6 @@ public class Tirer
         // GIVEN
         var id = Guid.NewGuid();
         var repository = new PartieDeChasseRepositoryForTests();
-
-        // Given une partie de chasse en cours avec un chasseur ayant huit balles
         
         repository.Add(new PartieDeChasse
         {
@@ -238,5 +236,13 @@ public class Tirer
 
         tirerQuandTerminée.Should()
             .Throw<OnTirePasQuandLaPartieEstTerminée>();
+    }
+}
+
+public record ChasseurBuilder
+{
+    public Chasseur Build()
+    {
+        return new() { Nom = "Dédé", BallesRestantes = 20 };
     }
 }
