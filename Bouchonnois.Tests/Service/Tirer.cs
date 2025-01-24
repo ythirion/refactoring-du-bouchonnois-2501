@@ -17,14 +17,12 @@ public class Tirer
         var bernard = UnChasseur("Bernard") with { BallesRestantes = 8 };
         var robert = UnChasseur("Robert") with { BallesRestantes = 12 };
 
-        var leTerrain = UnTerrain();
-
         var laPartieDeChasse = new PartieDeChasseBuilder().Build(id);
         repository.Add(laPartieDeChasse);
 
         var service = new PartieDeChasseService(repository, () => DateTime.Now);
 
-        service.Tirer(id, "Bernard");
+        service.Tirer(id, bernard.Nom);
 
         var savedPartieDeChasse = repository.SavedPartieDeChasse();
         savedPartieDeChasse.Id.Should().Be(id);
