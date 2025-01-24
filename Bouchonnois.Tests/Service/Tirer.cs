@@ -18,7 +18,7 @@ public class Tirer
 
         var laPartieDeChasse = UnePartieDeChasse() with {Chasseurs = [dédé, bernard, robert] };
 
-        repository.Add(laPartieDeChasse.Build(laPartieDeChasse.Id));
+        repository.Add(laPartieDeChasse.Build());
 
 
         // WHEN
@@ -27,7 +27,7 @@ public class Tirer
 
         // THEN
         var savedPartieDeChasse = repository.SavedPartieDeChasse();
-        var bernardAprèsLeTir = bernard with { BallesRestantes = 6 };
+        var bernardAprèsLeTir = bernard with { BallesRestantes = 7 };
         var expectedPartieDeChasse = laPartieDeChasse with { Chasseurs = [dédé, bernardAprèsLeTir, robert] };
         savedPartieDeChasse.Should().BeEquivalentTo(expectedPartieDeChasse);
     }
@@ -220,11 +220,11 @@ public class Tirer
 
 public record PartieDeChasseBuilder(Guid Id, List<ChasseurBuilder> Chasseurs)
 {
-    public PartieDeChasse Build(Guid id)
+    public PartieDeChasse Build()
     {
         return new PartieDeChasse
         {
-            Id = this.Id,
+            Id = Id,
             Chasseurs = Chasseurs.ConvertAll(c =>  c.Build() ),
             Terrain = new TerrainBuilder().Build(),
             Status = PartieStatus.EnCours,
