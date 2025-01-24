@@ -10,22 +10,24 @@ public class Tirer
     [Fact]
     public void AvecUnChasseurAyantDesBalles()
     {
+        // GIVEN
+        var repository = new PartieDeChasseRepositoryForTests();
         var dédé = UnChasseur("Dédé") with {BallesRestantes = 20};
         var bernard = UnChasseur("Bernard") with { BallesRestantes = 8 };
         var robert = UnChasseur("Robert") with { BallesRestantes = 12 };
 
         var laPartieDeChasse = UnePartieDeChasse() with {Chasseurs = [dédé, bernard, robert] };
-        var id = laPartieDeChasse.Id;
-        var repository = new PartieDeChasseRepositoryForTests();
 
-        repository.Add(laPartieDeChasse.Build(id));
+        repository.Add(laPartieDeChasse.Build(laPartieDeChasse.Id));
 
+
+        // WHEN
         var service = new PartieDeChasseService(repository, () => DateTime.Now);
+        service.Tirer(laPartieDeChasse.Id, bernard.Nom);
 
-        service.Tirer(id, bernard.Nom);
-
+        // THEN
         var savedPartieDeChasse = repository.SavedPartieDeChasse();
-        savedPartieDeChasse.Id.Should().Be(id);
+        savedPartieDeChasse.Id.Should().Be(laPartieDeChasse.Id);
         savedPartieDeChasse.Status.Should().Be(PartieStatus.EnCours);
         savedPartieDeChasse.Terrain.Should().BeEquivalentTo(new Terrain()
         {
