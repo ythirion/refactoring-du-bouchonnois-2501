@@ -7,7 +7,15 @@ namespace Bouchonnois.Tests.Service;
 
 public class Tirer
 {
-    private readonly PartieDeChasseRepositoryForTests _repository  = new PartieDeChasseRepositoryForTests();
+    private readonly PartieDeChasseRepositoryForTests _repository;
+    private PartieDeChasseService _service;
+
+    public Tirer()
+    {
+        _repository = new PartieDeChasseRepositoryForTests();
+        _service = new PartieDeChasseService(_repository, () => DateTime.Now);;;
+        ;
+    }
 
     [Fact]
     public void AvecUnChasseurAyantDesBalles()
@@ -18,12 +26,11 @@ public class Tirer
         var robert = UnChasseur("Robert") with { BallesRestantes = 12 };
 
         var laPartieDeChasse = UnePartieDeChasse() with {Chasseurs = [dédé, bernard, robert] };
-
-        _repository.Add(laPartieDeChasse.Build());
+        
+        PrépareLaPartie(laPartieDeChasse);
 
         // WHEN
-        var service = new PartieDeChasseService(_repository, () => DateTime.Now);
-        service.Tirer(laPartieDeChasse.Id, bernard.Nom);
+        _service.Tirer(laPartieDeChasse.Id, bernard.Nom);
 
         // THEN
         var bernardAprèsLeTir = bernard with { BallesRestantes = 7 };
@@ -31,6 +38,11 @@ public class Tirer
         
         var laPartieDeChasseActuelle = _repository.SavedPartieDeChasse();
         laPartieDeChasseActuelle.Should().BeEquivalentTo(laPartieDeChasseAttendue);
+    }
+
+    private void PrépareLaPartie(PartieDeChasseBuilder laPartieDeChasse)
+    {
+        _repository.Add(laPartieDeChasse.Build());
     }
 
     private static PartieDeChasseBuilder UnePartieDeChasse()
