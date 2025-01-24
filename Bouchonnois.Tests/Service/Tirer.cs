@@ -26,11 +26,7 @@ public class Tirer
                 bernard.Build(),
                 robert.Build()
             },
-            Terrain = new Terrain
-            {
-                Nom = "Pitibon sur Sauldre",
-                NbGalinettes = 3
-            },
+            Terrain = new TerrainBuilder().Build(),
             Status = PartieStatus.EnCours,
             Events = new List<Event>()
         });
@@ -231,6 +227,18 @@ public class Tirer
 
         tirerQuandTerminée.Should()
             .Throw<OnTirePasQuandLaPartieEstTerminée>();
+    }
+}
+
+public record TerrainBuilder
+{
+    public Terrain Build()
+    {
+        return new Terrain
+        {
+            Nom = "Pitibon sur Sauldre",
+            NbGalinettes = 3
+        };
     }
 }
 
