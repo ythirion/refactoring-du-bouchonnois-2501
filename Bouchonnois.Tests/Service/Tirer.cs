@@ -27,22 +27,9 @@ public class Tirer
 
         // THEN
         var savedPartieDeChasse = repository.SavedPartieDeChasse();
-        savedPartieDeChasse.Id.Should().Be(laPartieDeChasse.Id);
-        savedPartieDeChasse.Status.Should().Be(PartieStatus.EnCours);
-        savedPartieDeChasse.Terrain.Should().BeEquivalentTo(new Terrain()
-        {
-            Nom = "Pitibon sur Sauldre",
-            NbGalinettes = 3
-        });
-        savedPartieDeChasse.Chasseurs[1].BallesRestantes.Should().Be(7);
-
-        var bernardAprèsLeTir = bernard with { BallesRestantes = 7 };
-        savedPartieDeChasse.Chasseurs.Should().BeEquivalentTo(new Chasseur[]
-        {
-            dédé.Build(),
-            bernardAprèsLeTir.Build(),
-            robert.Build()            
-        });
+        var bernardAprèsLeTir = bernard with { BallesRestantes = 6 };
+        var expectedPartieDeChasse = laPartieDeChasse with { Chasseurs = [dédé, bernardAprèsLeTir, robert] };
+        savedPartieDeChasse.Should().BeEquivalentTo(expectedPartieDeChasse);
     }
 
     private static PartieDeChasseBuilder UnePartieDeChasse()
