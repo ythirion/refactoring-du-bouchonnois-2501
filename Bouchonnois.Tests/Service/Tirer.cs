@@ -12,6 +12,7 @@ public class Tirer
     {
         // GIVEN
         var repository = new PartieDeChasseRepositoryForTests();
+        
         var dédé = UnChasseur("Dédé") with {BallesRestantes = 20};
         var bernard = UnChasseur("Bernard") with { BallesRestantes = 8 };
         var robert = UnChasseur("Robert") with { BallesRestantes = 12 };
@@ -20,16 +21,16 @@ public class Tirer
 
         repository.Add(laPartieDeChasse.Build());
 
-
         // WHEN
         var service = new PartieDeChasseService(repository, () => DateTime.Now);
         service.Tirer(laPartieDeChasse.Id, bernard.Nom);
 
         // THEN
-        var savedPartieDeChasse = repository.SavedPartieDeChasse();
         var bernardAprèsLeTir = bernard with { BallesRestantes = 7 };
-        var expectedPartieDeChasse = laPartieDeChasse with { Chasseurs = [dédé, bernardAprèsLeTir, robert] };
-        savedPartieDeChasse.Should().BeEquivalentTo(expectedPartieDeChasse);
+        var laPartieDeChasseAttendue = laPartieDeChasse with { Chasseurs = [dédé, bernardAprèsLeTir, robert] };
+        
+        var laPartieDeChasseActuelle = repository.SavedPartieDeChasse();
+        laPartieDeChasseActuelle.Should().BeEquivalentTo(laPartieDeChasseAttendue);
     }
 
     private static PartieDeChasseBuilder UnePartieDeChasse()
