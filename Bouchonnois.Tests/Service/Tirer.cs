@@ -16,8 +16,10 @@ public class Tirer
         var dédé = UnChasseur("Dédé") with {BallesRestantes = 20};
         var bernard = UnChasseur("Bernard") with { BallesRestantes = 8 };
         var robert = UnChasseur("Robert") with { BallesRestantes = 12 };
-        
-        repository.Add(new PartieDeChasse
+
+        var leTerrain = new TerrainBuilder();
+
+        var laPartieDeChasse = new PartieDeChasse
         {
             Id = id,
             Chasseurs = new List<Chasseur>
@@ -26,10 +28,11 @@ public class Tirer
                 bernard.Build(),
                 robert.Build()
             },
-            Terrain = new TerrainBuilder().Build(),
+            Terrain = leTerrain.Build(),
             Status = PartieStatus.EnCours,
             Events = new List<Event>()
-        });
+        };
+        repository.Add(laPartieDeChasse);
 
         var service = new PartieDeChasseService(repository, () => DateTime.Now);
 
