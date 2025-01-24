@@ -17,7 +17,7 @@ public class Tirer
         var bernard = UnChasseur("Bernard") with { BallesRestantes = 8 };
         var robert = UnChasseur("Robert") with { BallesRestantes = 12 };
 
-        var leTerrain = new TerrainBuilder();
+        var leTerrain = UnTerrain();
 
         var laPartieDeChasse = new PartieDeChasse
         {
@@ -28,7 +28,7 @@ public class Tirer
                 (UnChasseur("Bernard") with { BallesRestantes = 8 }).Build(),
                 (UnChasseur("Robert") with { BallesRestantes = 12 }).Build()
             },
-            Terrain = leTerrain.Build(),
+            Terrain = UnTerrain().Build(),
             Status = PartieStatus.EnCours,
             Events = new List<Event>()
         };
@@ -55,6 +55,11 @@ public class Tirer
             bernardAprèsLeTir.Build(),
             robert.Build()            
         });
+    }
+
+    private static TerrainBuilder UnTerrain()
+    {
+        return new TerrainBuilder();
     }
 
     private static ChasseurBuilder UnChasseur(string nom)
