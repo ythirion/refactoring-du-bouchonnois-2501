@@ -10,14 +10,14 @@ public class Tirer
     [Fact]
     public void AvecUnChasseurAyantDesBalles()
     {
-        var id = Guid.NewGuid();
-        var repository = new PartieDeChasseRepositoryForTests();
-
         var dédé = UnChasseur("Dédé") with {BallesRestantes = 20};
         var bernard = UnChasseur("Bernard") with { BallesRestantes = 8 };
         var robert = UnChasseur("Robert") with { BallesRestantes = 12 };
 
-        var laPartieDeChasse = new PartieDeChasseBuilder(new List<ChasseurBuilder>()) with {Chasseurs = new List<ChasseurBuilder>() {dédé, bernard, robert}};
+        var laPartieDeChasse = UnePartieDeChasse() with {Chasseurs = [dédé, bernard, robert] };
+        var id = laPartieDeChasse.Id;
+        var repository = new PartieDeChasseRepositoryForTests();
+
         repository.Add(laPartieDeChasse.Build(id));
 
         var service = new PartieDeChasseService(repository, () => DateTime.Now);
@@ -41,6 +41,11 @@ public class Tirer
             bernardAprèsLeTir.Build(),
             robert.Build()            
         });
+    }
+
+    private static PartieDeChasseBuilder UnePartieDeChasse()
+    {
+        return new PartieDeChasseBuilder(Guid.NewGuid(), []);
     }
 
     private static TerrainBuilder UnTerrain()
@@ -224,13 +229,13 @@ public class Tirer
     }
 }
 
-public record PartieDeChasseBuilder(List<ChasseurBuilder> Chasseurs)
+public record PartieDeChasseBuilder(Guid Id, List<ChasseurBuilder> Chasseurs)
 {
     public PartieDeChasse Build(Guid id)
     {
         return new PartieDeChasse
         {
-            Id = id,
+            Id = this.Id,
             Chasseurs = Chasseurs.ConvertAll(c =>  c.Build() ),
             Terrain = new TerrainBuilder().Build(),
             Status = PartieStatus.EnCours,
