@@ -48,27 +48,13 @@ public class Tirer
             NbGalinettes = 3
         });
         savedPartieDeChasse.Chasseurs[1].BallesRestantes.Should().Be(7);
+
+        var bernardAprèsLeTir = bernard with { BallesRestantes = 7 };
         savedPartieDeChasse.Chasseurs.Should().BeEquivalentTo(new Chasseur[]
         {
-            new()
-            {
-                Nom = "Dédé",
-                BallesRestantes = 20,
-                NbGalinettes = 0
-            }, 
-            new()
-            {
-                Nom = "Bernard",
-                BallesRestantes = 7,
-                NbGalinettes = 0
-            },
-            new()
-            {
-                Nom = "Robert",
-                BallesRestantes = 12,
-                NbGalinettes = 0
-            }
-            
+            dédé.Build(),
+            bernardAprèsLeTir.Build(),
+            robert.Build()            
         });
     }
 
