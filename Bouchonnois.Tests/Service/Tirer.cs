@@ -19,19 +19,7 @@ public class Tirer
 
         var leTerrain = UnTerrain();
 
-        var laPartieDeChasse = new PartieDeChasse
-        {
-            Id = id,
-            Chasseurs = new List<Chasseur>
-            {
-                (UnChasseur("Dédé") with { BallesRestantes = 20 }).Build(),
-                (UnChasseur("Bernard") with { BallesRestantes = 8 }).Build(),
-                (UnChasseur("Robert") with { BallesRestantes = 12 }).Build()
-            },
-            Terrain = UnTerrain().Build(),
-            Status = PartieStatus.EnCours,
-            Events = new List<Event>()
-        };
+        var laPartieDeChasse = new PartieDeChasseBuilder().Build(id);
         repository.Add(laPartieDeChasse);
 
         var service = new PartieDeChasseService(repository, () => DateTime.Now);
@@ -235,6 +223,26 @@ public class Tirer
 
         tirerQuandTerminée.Should()
             .Throw<OnTirePasQuandLaPartieEstTerminée>();
+    }
+}
+
+public record PartieDeChasseBuilder
+{
+    public PartieDeChasse Build(Guid id)
+    {
+        return new PartieDeChasse
+        {
+            Id = id,
+            Chasseurs = new List<Chasseur>
+            {
+                (new ChasseurBuilder("Dédé", 0) with { BallesRestantes = 20 }).Build(),
+                (new ChasseurBuilder("Bernard", 0) with { BallesRestantes = 8 }).Build(),
+                (new ChasseurBuilder("Robert", 0) with { BallesRestantes = 12 }).Build()
+            },
+            Terrain = new TerrainBuilder().Build(),
+            Status = PartieStatus.EnCours,
+            Events = new List<Event>()
+        };
     }
 }
 
