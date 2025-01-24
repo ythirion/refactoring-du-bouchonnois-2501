@@ -15,6 +15,7 @@ public class Tirer
 
         var dédé = UnChasseur("Dédé") with {BallesRestantes = 20};
         var bernard = UnChasseur("Bernard") with { BallesRestantes = 8 };
+        var robert = UnChasseur("Robert") with { BallesRestantes = 12 };
         
         repository.Add(new PartieDeChasse
         {
@@ -23,7 +24,7 @@ public class Tirer
             {
                 dédé.Build(),
                 bernard.Build(),
-                new() { Nom = "Robert", BallesRestantes = 12 },
+                robert.Build()
             },
             Terrain = new Terrain
             {
