@@ -13,7 +13,7 @@ public class Tirer
         var id = Guid.NewGuid();
         var repository = new PartieDeChasseRepositoryForTests();
 
-        var dédé = UnChasseur("Dédé");
+        var dédé = UnChasseur("Dédé") with {BallesRestantes = 20};
         
         repository.Add(new PartieDeChasse
         {
@@ -72,7 +72,7 @@ public class Tirer
 
     private static ChasseurBuilder UnChasseur(string nom)
     {
-        return new ChasseurBuilder(nom);
+        return new ChasseurBuilder(nom, 0);
     }
 
     [Fact]
@@ -246,10 +246,10 @@ public class Tirer
     }
 }
 
-public record ChasseurBuilder(string Nom)
+public record ChasseurBuilder(string Nom, int BallesRestantes)
 {
     public Chasseur Build()
     {
-        return new() { Nom = this.Nom, BallesRestantes = 20 };
+        return new() { Nom = this.Nom, BallesRestantes = this.BallesRestantes };
     }
 }
