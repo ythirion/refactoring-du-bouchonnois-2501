@@ -9,11 +9,12 @@ public class PartieDeChasseTestContext
     private PartieDeChasseRepositoryForTests _repository;
     private PartieDeChasseService _service;
     protected Guid id;
+    private DateTime _time;
 
     public PartieDeChasseTestContext()
     {
         _repository = new PartieDeChasseRepositoryForTests();
-        _service = new PartieDeChasseService(_repository, () => DateTime.Now);
+        _service = new PartieDeChasseService(_repository, () => _time);
     }
 
     public PartieDeChasseTestContext EtantDonné(PartieDeChasseBuilder partieDeChasse)
@@ -34,12 +35,26 @@ public class PartieDeChasseTestContext
 
   
 
+    public PartieDeChasseTestContext LeChasseurTire(string nomDuChasseur)
+    {
+        _service.Tirer(id, nomDuChasseur);
+        return this;
+    } 
+    
+    [Obsolete]
     public PartieDeChasseTestContext QuandLeChasseurTire(Guid id, string nomDuChasseur)
     {
         _service.Tirer(id, nomDuChasseur);
 
         return this;
     }
+    
+    public PartieDeChasseTestContext LeChasseurTireSurUneGalinette(string nomDuChasseur)
+    {
+        _service.TirerSurUneGalinette(id, nomDuChasseur);
+        return this;
+    }
+    
     private protected PartieDeChasseTestContext QuandOnPrendLapéro(Guid id)
     {
      _service.PrendreLapéro(id);
@@ -65,4 +80,29 @@ public class PartieDeChasseTestContext
         return this;
     }
 
+    public PartieDeChasseTestContext A(DateTime time)
+    {
+        _time = time;
+        return this;
+    }
+
+    public PartieDeChasseTestContext Apres(TimeSpan delai)
+    {
+        _time = _time.Add(delai);
+        return this;
+    }
+
+    public PartieDeChasseTestContext LesChasseursPrennentLapéro()
+    {
+        _service.PrendreLapéro(id);
+        return this;
+    }
+
+    public PartieDeChasseTestContext LesChasseursReprennentLaPartie()
+    {
+        _service.ReprendreLaPartie(id);
+        return this;
+    }
+    
+    
 }
