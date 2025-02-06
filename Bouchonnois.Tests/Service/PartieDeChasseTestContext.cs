@@ -9,7 +9,7 @@ public class PartieDeChasseTestContext
     private PartieDeChasseRepositoryForTests _repository;
     private PartieDeChasseService _service;
     protected Guid id;
-    private DateTime _time;
+    protected DateTime _time;
 
     public PartieDeChasseTestContext()
     {
@@ -41,7 +41,7 @@ public class PartieDeChasseTestContext
         return this;
     } 
     
-    [Obsolete]
+    // [Obsolete]
     public PartieDeChasseTestContext QuandLeChasseurTire(Guid id, string nomDuChasseur)
     {
         _service.Tirer(id, nomDuChasseur);
@@ -103,6 +103,16 @@ public class PartieDeChasseTestContext
         _service.ReprendreLaPartie(id);
         return this;
     }
+
+    public PartieDeChasseTestContext TerminerLaPartie()
+    {
+        _service.TerminerLaPartie(id);
+        return this;
+    }
     
     
+    public string ConsulterStatus()
+    {
+       return  _service.ConsulterStatus(id);
+    }
 }
