@@ -42,6 +42,8 @@ public class ScenarioTests : PartieDeChasseTestContext
             .LeChasseurTire(Bernard)
             .Apres(1.Minutes())
             .LeChasseurTire(Bernard)
+            .Apres(1.Minutes())
+            .LeChasseurTireSurUneGalinette(Dédé)
             .Apres(26.Minutes())
             .LeChasseurTireSurUneGalinette(Robert)
             .Apres(10.Minutes())
