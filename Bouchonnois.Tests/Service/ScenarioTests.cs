@@ -1,14 +1,25 @@
 using Bouchonnois.Service;
 using Bouchonnois.Service.Exceptions;
 using Bouchonnois.Tests.Doubles;
+using static Bouchonnois.Tests.Service.ChasseurBuilder;
+using static Bouchonnois.Tests.Service.PartieDeChasseBuilder;
 
 namespace Bouchonnois.Tests.Service;
 
-public class ScenarioTests
+public class ScenarioTests : PartieDeChasseTestContext
 {
     [Fact]
     public Task DéroulerUnePartie()
     {
+        EtantDonnéUnePartieDémarée(
+            UnePartieDeChasse()
+                .Sur(new TerrainBuilder("Pitibon sur Sauldre",4))
+                .OuParticipent(
+                    UnChasseur().Nommé("Dédé").AvecDesBalles(20),
+                    UnChasseur().Nommé("Bernard").AvecDesBalles(8),
+                    UnChasseur().Nommé("Robert").AvecDesBalles(12)
+                )
+        );
         var time = new DateTime(2024, 4, 25, 9, 0, 0);
         var repository = new PartieDeChasseRepositoryForTests();
         var service = new PartieDeChasseService(repository, () => time);
@@ -18,14 +29,9 @@ public class ScenarioTests
             ("Bernard", 8),
             ("Robert", 12)
         };
-        var terrainDeChasse = ("Pitibon sur Sauldre", 4);
-        var id = service.Demarrer(
-            terrainDeChasse,
-            chasseurs
-        );
-
         time = time.Add(TimeSpan.FromMinutes(10));
-        service.Tirer(id, "Dédé");
+        QuandLeChasseurTire(id, "Dédé");
+        // service.Tirer(id, "Dédé");
 
         time = time.Add(TimeSpan.FromMinutes(30));
         service.TirerSurUneGalinette(id, "Robert");

@@ -8,6 +8,7 @@ public class PartieDeChasseTestContext
 {
     private PartieDeChasseRepositoryForTests _repository;
     private PartieDeChasseService _service;
+    protected Guid id;
 
     public PartieDeChasseTestContext()
     {
@@ -21,6 +22,17 @@ public class PartieDeChasseTestContext
         return this;
     }
 
+    public PartieDeChasseTestContext EtantDonnéUnePartieDémarée(PartieDeChasseBuilder partieDeChasse)
+    {
+        var deChasse = partieDeChasse.Build();
+        id = _service.Demarrer(
+            (deChasse.Terrain.Nom,deChasse.Terrain.NbGalinettes),
+            deChasse.Chasseurs.Select(chasseur => (chasseur.Nom,chasseur.BallesRestantes)).ToList());
+        return this;
+ 
+    }
+
+  
 
     public PartieDeChasseTestContext QuandLeChasseurTire(Guid id, string nomDuChasseur)
     {
@@ -52,4 +64,5 @@ public class PartieDeChasseTestContext
         _repository.SavedPartieDeChasse().Should().BeNull();
         return this;
     }
+
 }
