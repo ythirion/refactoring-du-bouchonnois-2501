@@ -15,6 +15,13 @@ public class PartieDeChasseBuilder()
     private Guid _id = Guid.Parse("BFB8EE46-34C2-4152-A9B9-F863F18FBDF5");
     private List<Event> _events = new List<Event>();
 
+    public static PartieDeChasseBuilder UnePartieDeChasse()
+    {
+        var partieDeChasseBuilder = new PartieDeChasseBuilder();
+        return partieDeChasseBuilder;
+    }
+
+
     public static PartieDeChasseBuilder UnePartieDeChasse(Guid id)
     {
         var partieDeChasseBuilder = new PartieDeChasseBuilder();
@@ -63,5 +70,32 @@ public class PartieDeChasseBuilder()
     {
         _partieStatus = PartieStatus.Terminée;
         return this;
+    }
+
+    public PartieDeChasseBuilder Sur(TerrainBuilder terrain)
+    {
+        _terrain = terrain.Build();
+        return this;
+    }
+}
+
+public class TerrainBuilder
+{
+    private string _nom;
+    private readonly int _nbGalinettes;
+
+    public TerrainBuilder(string nom, int nbGalinettes)
+    {
+        _nom = nom;
+        _nbGalinettes = nbGalinettes;
+    }
+
+    public Terrain Build()
+    {
+        return new Terrain
+        {
+            Nom = this._nom,
+            NbGalinettes = _nbGalinettes
+        };
     }
 }

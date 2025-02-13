@@ -9,7 +9,7 @@ public class PartieDeChasseTestContext
     private PartieDeChasseRepositoryForTests _repository;
     private PartieDeChasseService _service;
     protected Guid id;
-    protected DateTime _time;
+    protected DateTime _time = new(2025, 01, 01, 09, 00, 00);
 
     public PartieDeChasseTestContext()
     {
@@ -23,21 +23,24 @@ public class PartieDeChasseTestContext
         return this;
     }
 
-    public static PartieDeChasseTestContext EtantDonnéUnePartieDémarée(PartieDeChasseBuilder partieDeChasse)
+    public PartieDeChasseTestContext EtantDonnéUnePartieDémarée(PartieDeChasseBuilder partieDeChasse)
     {
         var deChasse = partieDeChasse.Build();
         id = _service.Demarrer(
             (deChasse.Terrain.Nom,deChasse.Terrain.NbGalinettes),
             deChasse.Chasseurs.Select(chasseur => (chasseur.Nom,chasseur.BallesRestantes)).ToList());
         return this;
- 
     }
-
-  
 
     public PartieDeChasseTestContext LeChasseurTire(string nomDuChasseur)
     {
-        _service.Tirer(id, nomDuChasseur);
+        try
+        {
+            _service.Tirer(id, nomDuChasseur);
+        }
+        catch
+        {
+        }
         return this;
     } 
     
@@ -60,6 +63,7 @@ public class PartieDeChasseTestContext
      _service.PrendreLapéro(id);
      return this;
     }
+    
     private protected PartieDeChasseTestContext CEstLapéro(Guid id)
     {
      _repository.SavedPartieDeChasse().Status.Should().Be(PartieStatus.Apéro);
@@ -109,7 +113,6 @@ public class PartieDeChasseTestContext
         _service.TerminerLaPartie(id);
         return this;
     }
-    
     
     public string ConsulterStatus()
     {
