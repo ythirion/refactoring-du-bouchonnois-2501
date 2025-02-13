@@ -17,14 +17,23 @@ public class TirerSurUneGalinette : PartieDeChasseTestContext
             select (nom, nbGalinette)).ToArbitrary();
 
     [Property]
-    public Property EchoueQuandIlNyAPasDeGalinetttesSurLeTerrain()
+    public Property TOCHANGE()
     {
         return Prop.ForAll(
-            TerrainGenerator(0, 0),
-            )
+                           TerrainGenerator(500, 5000),
+                           terrain => terrain.nbGalinettes > 1000
+                          );
+
         // Pour tout terrain sans nom, avec moin
-        
+
     }  
+
+    [Fact]
+    public void ShouldDoSomething()
+    {
+        (string nom, int nbGalinettes)[]? terrain = TerrainGenerator(int.MinValue, 0).Generator.Sample(5);
+        terrain.Should().BeEmpty();
+    }
     
     [Fact]
     public void AvecUnChasseurAyantDesBallesEtAssezDeGalinettesSurLeTerrain()
