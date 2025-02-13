@@ -8,11 +8,13 @@ public class PartieDeChasseTestContext
 {
     private PartieDeChasseRepositoryForTests _repository;
     private PartieDeChasseService _service;
+    protected Guid id;
+    protected DateTime _time;
 
     public PartieDeChasseTestContext()
     {
         _repository = new PartieDeChasseRepositoryForTests();
-        _service = new PartieDeChasseService(_repository, () => DateTime.Now);
+        _service = new PartieDeChasseService(_repository, () => _time);
     }
 
     public PartieDeChasseTestContext EtantDonné(PartieDeChasseBuilder partieDeChasse)
@@ -21,13 +23,38 @@ public class PartieDeChasseTestContext
         return this;
     }
 
+    public static PartieDeChasseTestContext EtantDonnéUnePartieDémarée(PartieDeChasseBuilder partieDeChasse)
+    {
+        var deChasse = partieDeChasse.Build();
+        id = _service.Demarrer(
+            (deChasse.Terrain.Nom,deChasse.Terrain.NbGalinettes),
+            deChasse.Chasseurs.Select(chasseur => (chasseur.Nom,chasseur.BallesRestantes)).ToList());
+        return this;
+ 
+    }
 
+  
+
+    public PartieDeChasseTestContext LeChasseurTire(string nomDuChasseur)
+    {
+        _service.Tirer(id, nomDuChasseur);
+        return this;
+    } 
+    
+    // [Obsolete]
     public PartieDeChasseTestContext QuandLeChasseurTire(Guid id, string nomDuChasseur)
     {
         _service.Tirer(id, nomDuChasseur);
 
         return this;
     }
+    
+    public PartieDeChasseTestContext LeChasseurTireSurUneGalinette(string nomDuChasseur)
+    {
+        _service.TirerSurUneGalinette(id, nomDuChasseur);
+        return this;
+    }
+    
     private protected PartieDeChasseTestContext QuandOnPrendLapéro(Guid id)
     {
      _service.PrendreLapéro(id);
@@ -51,5 +78,41 @@ public class PartieDeChasseTestContext
     {
         _repository.SavedPartieDeChasse().Should().BeNull();
         return this;
+    }
+
+    public PartieDeChasseTestContext A(DateTime time)
+    {
+        _time = time;
+        return this;
+    }
+
+    public PartieDeChasseTestContext Apres(TimeSpan delai)
+    {
+        _time = _time.Add(delai);
+        return this;
+    }
+
+    public PartieDeChasseTestContext LesChasseursPrennentLapéro()
+    {
+        _service.PrendreLapéro(id);
+        return this;
+    }
+
+    public PartieDeChasseTestContext LesChasseursReprennentLaPartie()
+    {
+        _service.ReprendreLaPartie(id);
+        return this;
+    }
+
+    public PartieDeChasseTestContext TerminerLaPartie()
+    {
+        _service.TerminerLaPartie(id);
+        return this;
+    }
+    
+    
+    public string ConsulterStatus()
+    {
+       return  _service.ConsulterStatus(id);
     }
 }
