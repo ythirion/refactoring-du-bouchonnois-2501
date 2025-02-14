@@ -12,6 +12,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="CsCheck" Version="4.2.0"/>
         <PackageReference Include="FluentAssertions" Version="8.0.1"/>
         <PackageReference Include="FsCheck.Xunit" Version="3.1.0"/>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0"/>
