@@ -30,16 +30,13 @@ public class DemarrerPartiePropertiesWithCsCheck
 
     private static readonly Gen<string> RandomString = Gen.String[Gen.Char.AlphaNumeric, 1, 5000];
 
-    public static Gen<(string nom, int nbGalinette)> TerrainGenerator(int minGalinettes, int maxGalinettes)
+    private static Gen<(string nom, int nbGalinette)> TerrainGenerator(int minGalinettes, int maxGalinettes)
         => from nom in RandomString
             from nbGalinette in Gen.Int[minGalinettes, maxGalinettes]
             select (nom, nbGalinette);
 
     public static Gen<(string nom, int nbGalinettes)> TerrainRicheEnGalinettes()
         => TerrainGenerator(1, int.MaxValue);
-
-    public static Gen<(string nom, int nbGalinettes)> TerrainSansGalinettes()
-        => TerrainGenerator(-int.MaxValue, 0);
 
     private static Gen<(string nom, int nbBalles)> Chasseurs(int minBalles, int maxBalles)
         => from nom in RandomString
@@ -50,9 +47,6 @@ public class DemarrerPartiePropertiesWithCsCheck
         => from nbChasseurs in Gen.Int[1, 1_000]
             select Chasseurs(minBalles, maxBalles).Array[nbChasseurs].Single();
 
-    public static Gen<(string nom, int nbBalles)[]> DesChasseursAvecDesBalles()
+    private static Gen<(string nom, int nbBalles)[]> DesChasseursAvecDesBalles()
         => GroupeDeChasseurs(1, int.MaxValue);
-
-    public static Gen<(string nom, int nbBalles)[]> DesChasseursSansBalles()
-        => GroupeDeChasseurs(0, 0);
 }
