@@ -1,4 +1,5 @@
 using Bouchonnois.Domain;
+using Bouchonnois.Domain.Exceptions;
 using Bouchonnois.Service.Exceptions;
 
 namespace Bouchonnois.Service
@@ -148,17 +149,20 @@ namespace Bouchonnois.Service
                     {
                         var chasseurQuiTire = partieDeChasse.Chasseurs.First(c => c.Nom == chasseur);
 
-                        if (chasseurQuiTire.BallesRestantes == 0)
+
+                        try
+                        {
+                            chasseurQuiTire.Tire();
+                        }
+                        catch (TasPlusDeBallesMonVieuxChasseALaMain)
                         {
                             partieDeChasse.Events.Add(new Event(_timeProvider(),
                                 $"{chasseur} tire -> T'as plus de balles mon vieux, chasse à la main"));
                             _repository.Save(partieDeChasse);
-
-                            throw new TasPlusDeBallesMonVieuxChasseALaMain();
+                            throw;
                         }
 
                         partieDeChasse.Events.Add(new Event(_timeProvider(), $"{chasseur} tire"));
-                        chasseurQuiTire.BallesRestantes--;
                     }
                     else
                     {

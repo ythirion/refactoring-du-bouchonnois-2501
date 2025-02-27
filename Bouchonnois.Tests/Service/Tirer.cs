@@ -1,3 +1,4 @@
+using Bouchonnois.Domain.Exceptions;
 using Bouchonnois.Service.Exceptions;
 using static Bouchonnois.Tests.Service.PartieDeChasseBuilder;
 using static Bouchonnois.Tests.Service.ChasseurBuilder;
