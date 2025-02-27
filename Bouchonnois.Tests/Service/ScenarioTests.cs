@@ -4,8 +4,13 @@ using static Bouchonnois.Tests.Service.PartieDeChasseBuilder;
 
 namespace Bouchonnois.Tests.Service;
 
-public class ScenarioTests
+public class ScenarioTests : PartieDeChasseTestContext
 {
+    public ScenarioTests()
+    {
+        _time = new DateTime(2024, 4, 25, 9, 0, 0);
+    }
+    
     [Fact]
     public Task DéroulerUnePartie()
     {

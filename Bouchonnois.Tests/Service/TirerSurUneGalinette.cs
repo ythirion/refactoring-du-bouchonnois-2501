@@ -2,11 +2,20 @@ using Bouchonnois.Domain;
 using Bouchonnois.Service;
 using Bouchonnois.Service.Exceptions;
 using Bouchonnois.Tests.Doubles;
+using FsCheck;
+using FsCheck.Fluent;
+using FsCheck.Xunit;
 
 namespace Bouchonnois.Tests.Service;
 
-public class TirerSurUneGalinette
+public class TirerSurUneGalinette : PartieDeChasseTestContext
 {
+    
+    private static Arbitrary<(string nom, int nbGalinettes)> TerrainGenerator(int minGalinettes, int maxGalinettes)
+        => (from nom in ArbMap.Default.ArbFor<string>().Generator
+            from nbGalinette in Gen.Choose(minGalinettes, maxGalinettes)
+            select (nom, nbGalinette)).ToArbitrary();
+    
     [Fact]
     public void AvecUnChasseurAyantDesBallesEtAssezDeGalinettesSurLeTerrain()
     {
