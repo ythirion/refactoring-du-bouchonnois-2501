@@ -143,11 +143,8 @@ namespace Bouchonnois.Service
 
             if (partieDeChasse.Status == PartieStatus.Apéro)
             {
-                partieDeChasse.Events.Add(new Event(_timeProvider(),
-                    $"{chasseur} veut tirer -> On tire pas pendant l'apéro, c'est sacré !!!"));
+                partieDeChasse.FaireTirerChasseur(chasseur);
                 _repository.Save(partieDeChasse);
-
-                throw new OnTirePasPendantLapéroCestSacré();
             }
 
             if (partieDeChasse.Status == PartieStatus.Terminée)
