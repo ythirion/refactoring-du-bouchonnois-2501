@@ -13,5 +13,11 @@ namespace Bouchonnois.Domain
         public required Terrain Terrain { get; set; }
         public PartieStatus Status { get; set; }
         public List<Event> Events { get; set; }
+
+        public void FaireTirerChasseur(string chasseur)
+        {
+            var partieDeChasse = this;
+            
+        }
     }
 }
