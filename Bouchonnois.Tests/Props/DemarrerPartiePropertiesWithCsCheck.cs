@@ -15,12 +15,14 @@ public class DemarrerPartiePropertiesWithCsCheck
         _service = new PartieDeChasseService(_repository, () => DateTime.Now);
     }
 
-    [Fact(Skip = "todo next Seed : 723_W3e884p4")]
+    [Fact]
     public void Sur1TerrainAvecGalinettesEtChasseursAvecTousDesBalles() =>
         (from terrain in TerrainRicheEnGalinettes()
             from chasseursAvecBalles in DesChasseursAvecDesBalles()
             select (terrain, chasseursAvecBalles))
-        .Sample((terrain, chasseurs) => DémarreLaPartieAvecSuccès(terrain, chasseurs));
+        .Sample((terrain, chasseurs) => DémarreLaPartieAvecSuccès(terrain, chasseurs), 
+            iter: 10,
+            threads: 1);
 
     private bool DémarreLaPartieAvecSuccès((string nom, int nbGalinettes) terrain,
         IEnumerable<(string nom, int nbBalles)> chasseurs)
