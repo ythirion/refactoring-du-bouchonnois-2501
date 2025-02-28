@@ -30,7 +30,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Bouchonnois\Bouchonnois.csproj"/>
+      <ProjectReference Include="..\..\src\Bouchonnois\Bouchonnois.csproj" />
     </ItemGroup>
 
 </Project>
